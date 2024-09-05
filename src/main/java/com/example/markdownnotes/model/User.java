@@ -9,7 +9,7 @@ public class User {
 	// 테이블 정의
 	// DB 스키마에 맞출것
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(nullable = false, unique = true, length = 255)

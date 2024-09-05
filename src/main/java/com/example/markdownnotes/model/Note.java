@@ -9,7 +9,7 @@ public class Note {
 	// 테이블 정의
 	// DB 스키마에 맞출것
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
