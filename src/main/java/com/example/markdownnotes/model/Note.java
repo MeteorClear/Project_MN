@@ -30,7 +30,7 @@ public class Note {
 	private LocalDateTime createdAt;
 	
 	@Column(name = "updated_at")
-	private LocalDateTime updateddAt;
+	private LocalDateTime updatedAt;
 	
 	// Constructor
 	public Note() {
