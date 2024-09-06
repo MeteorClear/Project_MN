@@ -36,4 +36,14 @@ public class UserService {
 	public void deleteUser(Integer id) {
 		userRepository.deleteById(id);
 	}
+	
+	// 사용자 업데이트
+	public User updateUser(Integer id, User updatedUser) {
+		return userRepository.findById(id).map(user -> {
+			user.setEmail(updatedUser.getEmail());
+			user.setPassword(updatedUser.getPassword());
+			user.setUsername(updatedUser.getUsername());
+			return userRepository.save(user);
+		}).orElseThrow(() -> new RuntimeException("[ERROR]User not found, id: " + id));
+	}
 }
