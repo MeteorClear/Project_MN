@@ -2,9 +2,13 @@ package com.example.markdownnotes.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Note")
+@Getter
+@Setter
 public class Note {
 	// 테이블 정의
 	// DB 스키마에 맞출것
@@ -32,7 +36,4 @@ public class Note {
 	public Note() {
 		// To do
 	}
-	
-	// Getter & Setter
-	// 아직까진 필요하지 않음, 필요시 작성
 }
