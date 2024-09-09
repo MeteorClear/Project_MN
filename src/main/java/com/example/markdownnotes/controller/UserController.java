@@ -38,6 +38,11 @@ public class UserController {
 	}
 	
 	// 사용자 생성
+	@PostMapping
+	public ResponseEntity<User> createUser(@RequestBody User user) {
+		User createdUser = userService.createUser(user);
+		return ResponseEntity.ok(createdUser);
+	}
 	
 	// 사용자 삭제
 	
