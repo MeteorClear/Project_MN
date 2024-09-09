@@ -52,4 +52,9 @@ public class UserController {
 	}
 	
 	// 사용자 업데이트
+	@PutMapping("/{id}")
+	public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User updatedUser) {
+		User user = userService.updateUser(id, updatedUser);
+		return ResponseEntity.ok(user);
+	}
 }
