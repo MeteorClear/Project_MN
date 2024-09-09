@@ -45,6 +45,10 @@ public class UserController {
 	}
 	
 	// 사용자 삭제
+	public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+		userService.deleteUser(id);
+		return ResponseEntity.noContent().build();
+	}
 	
 	// 사용자 업데이트
 }
