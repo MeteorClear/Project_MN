@@ -52,6 +52,11 @@ public class NoteController {
 	}
 	
 	// 메모 삭제
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteNote(@PathVariable Integer id) {
+		noteService.deleteNote(id);
+		return ResponseEntity.noContent().build();
+	}
 	
 	// 메모 업데이트
 }
