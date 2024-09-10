@@ -59,4 +59,13 @@ public class NoteController {
 	}
 	
 	// 메모 업데이트
+	@PutMapping("/{id}")
+	public ResponseEntity<Note> updateNote(@PathVariable Integer id, @RequestBody Note upadatedNote) {
+		try {
+			Note note = noteService.updateNote(id, upadatedNote);
+			return ResponseEntity.ok(note);
+		} catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 }
