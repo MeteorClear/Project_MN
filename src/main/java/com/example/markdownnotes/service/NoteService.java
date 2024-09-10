@@ -16,7 +16,7 @@ public class NoteService {
 	private final NoteRepository noteRepository;
 	
 	// 모든 메모 조회
-	public List<Note> getAllNote() {
+	public List<Note> getAllNotes() {
 		return noteRepository.findAll();
 	}
 	
