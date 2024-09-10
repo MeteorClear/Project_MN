@@ -41,6 +41,15 @@ public class NoteController {
 	}
 	
 	// 메모 생성
+	@PostMapping("/user/{userId}")
+	public ResponseEntity<Note> createNote(@RequestBody Note note, @PathVariable Integer userId) {
+		try {
+			Note createdNote = noteService.createNote(note, userId);
+			return ResponseEntity.ok(createdNote);
+		} catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
 	// 메모 삭제
 	
