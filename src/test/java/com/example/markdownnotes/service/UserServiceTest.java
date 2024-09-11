@@ -2,12 +2,15 @@ package com.example.markdownnotes.service;
 
 import com.example.markdownnotes.model.User;
 import com.example.markdownnotes.repository.UserRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +36,34 @@ public class UserServiceTest {
 		user.setUsername("testuser");
 	}
 	
+	// getAllUsers
+	@Test
+	void getAllUsers_ShouldReturnUserList_WhenUsersExist() {
+		// Given
+		User anotherUser = new User();
+		user.setId(2);
+		user.setEmail("another@example.com");
+		user.setPassword("anotherpassword");
+		user.setUsername("anothertestuser");
+		
+		when(userRepository.findAll()).thenReturn(Arrays.asList(user, anotherUser));
+		
+		// When
+		List<User> users = userService.getAllUsers();
+		
+		// Then
+		assertNotNull(users);
+		assertEquals(2, users.size());
+		verify(userRepository, times(1)).findAll();
+	}
 	
-
+	// getUserById
+	
+	// getUserByEmail
+	
+	// createUser
+	
+	// deleteUser
+	
+	// updateUser
 }
