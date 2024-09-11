@@ -58,6 +58,18 @@ public class UserServiceTest {
 	}
 	
 	// getUserById
+	@Test
+	void getUserById_ShouldReturnUser_WhenUserExist() {
+		// Given
+		when(userRepository.findById(1)).thenReturn(Optional.of(user));
+		
+		// When
+		Optional<User> foundUser = userService.getUserById(1);
+		
+		// Then
+		assertTrue(foundUser.isPresent());
+		assertEquals("test@example.com", foundUser.get().getEmail());
+	}
 	
 	// getUserByEmail
 	
