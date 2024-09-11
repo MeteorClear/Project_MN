@@ -101,6 +101,14 @@ public class UserServiceTest {
 	}
 	
 	// deleteUser
+	@Test
+	void deleteUser_ShouldCallRepositoryDelete_WhenUserExist() {
+		// When
+		userService.deleteUser(1);
+		
+		// Then
+		verify(userRepository, times(1)).deleteById(1);
+	}
 	
 	// updateUser
 }
