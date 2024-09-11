@@ -41,10 +41,10 @@ public class UserServiceTest {
 	void getAllUsers_ShouldReturnUserList_WhenUsersExist() {
 		// Given
 		User anotherUser = new User();
-		user.setId(2);
-		user.setEmail("another@example.com");
-		user.setPassword("anotherpassword");
-		user.setUsername("anothertestuser");
+		anotherUser.setId(2);
+		anotherUser.setEmail("another@example.com");
+		anotherUser.setPassword("anotherpassword");
+		anotherUser.setUsername("anothertestuser");
 		
 		when(userRepository.findAll()).thenReturn(Arrays.asList(user, anotherUser));
 		
