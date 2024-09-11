@@ -13,6 +13,26 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
+	
+	@Mock
+	private UserRepository userRepository;
+	
+	@InjectMocks
+	private UserService userService;
+	
+	private User user;
+	
+	@BeforeEach
+	void setUp() {
+		user = new User();
+		user.setId(1);
+		user.setEmail("test@example.com");
+		user.setPassword("password");
+		user.setUsername("testuser");
+	}
+	
+	
 
 }
