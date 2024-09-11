@@ -59,7 +59,7 @@ public class UserServiceTest {
 	
 	// getUserById
 	@Test
-	void getUserById_ShouldReturnUser_WhenUserExist() {
+	void getUserById_ShouldReturnUser_WhenUserExists() {
 		// Given
 		when(userRepository.findById(1)).thenReturn(Optional.of(user));
 		
@@ -73,7 +73,7 @@ public class UserServiceTest {
 	
 	// getUserByEmail
 	@Test
-	void getUserByEmail_ShouldReturnUser_WhenUserExist() {
+	void getUserByEmail_ShouldReturnUser_WhenUserExists() {
 		// Given
 		when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(user));
 		
@@ -102,7 +102,7 @@ public class UserServiceTest {
 	
 	// deleteUser
 	@Test
-	void deleteUser_ShouldCallRepositoryDelete_WhenUserExist() {
+	void deleteUser_ShouldCallRepositoryDelete_WhenUserExists() {
 		// When
 		userService.deleteUser(1);
 		
@@ -112,7 +112,7 @@ public class UserServiceTest {
 	
 	// updateUser
 	@Test
-	void updateUser_ShouldReturnUpdatedUser_WhenUserExist() {
+	void updateUser_ShouldReturnUpdatedUser_WhenUserExists() {
 		// Given
 		User updatedUser = new User();
 		updatedUser.setId(1);
