@@ -111,4 +111,42 @@ public class UserServiceTest {
 	}
 	
 	// updateUser
+	@Test
+	void updateUser_ShouldReturnUpdatedUser_WhenUserExist() {
+		// Given
+		User updatedUser = new User();
+		updatedUser.setId(1);
+		updatedUser.setEmail("updated@example.com");
+		updatedUser.setPassword("updatedpassword");
+		updatedUser.setUsername("updatedtestuser");
+		
+		when(userRepository.findById(1)).thenReturn(Optional.of(user));
+		when(userRepository.save(user)).thenReturn(updatedUser);
+		
+		// When
+		User result = userService.updateUser(1, updatedUser);
+		
+		// Then
+		assertNotNull(result);
+		assertEquals("updated@example.com", result.getEmail());
+		assertEquals("updatedtestuser", result.getUsername());
+		verify(userRepository, times(1)).findById(1);
+		verify(userRepository, times(1)).save(user);
+	}
+	@Test
+	void updateUser_ShouldThrowException_WhenUserDoesNotExist() {
+		// Given
+		User updatedUser = new User();
+		updatedUser.setId(1);
+		updatedUser.setEmail("updated@example.com");
+		updatedUser.setPassword("updatedpassword");
+		updatedUser.setUsername("updatedtestuser");
+		
+		when(userRepository.findById(1)).thenReturn(Optional.empty());
+		
+		// Then
+		assertThrows(RuntimeException.class, () -> userService.updateUser(1, updatedUser));
+		verify(userRepository, times(1)).findById(1);
+		verify(userRepository, times(0)).save(any(User.class));
+	}
 }
