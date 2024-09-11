@@ -86,6 +86,19 @@ public class UserServiceTest {
 	}
 	
 	// createUser
+	@Test
+	void createUser_ShouldSaveAndReturnUser() {
+		// Given
+		when(userRepository.save(user)).thenReturn(user);
+		
+		// When
+		User createdUser = userService.createUser(user);
+		
+		// Then
+		assertNotNull(createdUser);
+		assertEquals("testuser", createdUser.getUsername());
+		verify(userRepository, times(1)).save(user);
+	}
 	
 	// deleteUser
 	
