@@ -100,6 +100,19 @@ public class NoteServiceTest {
 	}
 	
 	// createNote
+	void createNote_ShouldSaveAndReturnNote_WhenUserExists() {
+		// Given
+		when(userRepository.findById(1)).thenReturn(Optional.of(user));
+		when(noteRepository.save(note)).thenReturn(note);
+		
+		// When
+		Note createdNote = noteService.createNote(note, 1);
+		
+		// Then
+		assertNotNull(createdNote);
+		assertEquals("Test Note", createdNote.getTitle());
+		verify(noteRepository, times(1)).save(note);
+	}
 	
 	// deleteNote
 	
