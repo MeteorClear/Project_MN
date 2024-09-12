@@ -129,4 +129,26 @@ public class NoteServiceTest {
 	}
 	
 	// updateNote
+	@Test
+	void updateNote_ShouldReturnUpdatedNote_WhenNoteExists() {
+		// Given
+		Note updatedNote = new Note();
+		updatedNote.setId(1);
+		updatedNote.setTitle("Updated Test Note");
+		updatedNote.setContent("Updated Test Note content");
+		updatedNote.setUser(user);
+		
+		when(noteRepository.findById(1)).thenReturn(Optional.of(note));
+		when(noteRepository.save(note)).thenReturn(updatedNote);
+		
+		// When
+		Note result = noteService.updateNote(1, updatedNote);
+		
+		// Then
+		assertNotNull(result);
+		assertEquals("Updated Test Note", result.getTitle());
+		assertEquals("Updated Test Note content", result.getContent());
+		verify(noteRepository, times(1)).findById(1);
+		verify(noteRepository, times(1)).save(note);
+	}
 }
