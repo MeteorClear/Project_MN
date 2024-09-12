@@ -173,4 +173,20 @@ public class NoteServiceTest {
 		verify(noteRepository, times(1)).findById(1);
 		verify(noteRepository, times(1)).save(note);
 	}
+	// RuntimeException Test updateNote
+	@Test
+	void updateNote_ShouldThrowException_WhenNoteDoesNotExist() {
+		// Given
+		Note updatedNote = new Note();
+		updatedNote.setId(1);
+		updatedNote.setTitle("Updated Test Note");
+		updatedNote.setContent("Updated Test Note content");
+		
+		when(noteRepository.findById(1)).thenReturn(Optional.empty());
+		
+		// Then
+		assertThrows(RuntimeException.class, () -> noteService.updateNote(1, updatedNote));
+		verify(userRepository, times(1)).findById(1);
+		verify(noteRepository, times(0)).save(any(Note.class));
+	}
 }
