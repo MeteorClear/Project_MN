@@ -100,6 +100,7 @@ public class NoteServiceTest {
 	}
 	
 	// createNote
+	@Test
 	void createNote_ShouldSaveAndReturnNote_WhenUserExists() {
 		// Given
 		when(userRepository.findById(1)).thenReturn(Optional.of(user));
