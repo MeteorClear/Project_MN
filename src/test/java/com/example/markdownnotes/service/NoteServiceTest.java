@@ -186,7 +186,7 @@ public class NoteServiceTest {
 		
 		// Then
 		assertThrows(RuntimeException.class, () -> noteService.updateNote(1, updatedNote));
-		verify(userRepository, times(1)).findById(1);
+		verify(noteRepository, times(1)).findById(1);
 		verify(noteRepository, times(0)).save(any(Note.class));
 	}
 }
