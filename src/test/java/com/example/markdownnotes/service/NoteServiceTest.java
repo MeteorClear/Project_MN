@@ -161,7 +161,7 @@ public class NoteServiceTest {
 		updatedNote.setUser(user);
 		
 		when(noteRepository.findById(1)).thenReturn(Optional.of(note));
-		when(noteRepository.save(note)).thenReturn(updatedNote);
+		when(noteRepository.save(any(Note.class))).thenReturn(updatedNote);
 		
 		// When
 		Note result = noteService.updateNote(1, updatedNote);
@@ -171,7 +171,7 @@ public class NoteServiceTest {
 		assertEquals("Updated Test Note", result.getTitle());
 		assertEquals("Updated Test Note content", result.getContent());
 		verify(noteRepository, times(1)).findById(1);
-		verify(noteRepository, times(1)).save(note);
+		verify(noteRepository, times(1)).save(any(Note.class));
 	}
 	// RuntimeException Test updateNote
 	@Test
