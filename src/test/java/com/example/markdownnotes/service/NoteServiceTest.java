@@ -66,6 +66,19 @@ public class NoteServiceTest {
 	}
 	
 	// getNoteById
+	@Test
+	void getNoteById_ShouldReturnNote_WhenNoteExists() {
+		// Given
+		when(noteRepository.findById(1)).thenReturn(Optional.of(note));
+		
+		// When
+		Optional<Note> foundNote = noteService.getNoteById(1);
+		
+		// Then
+		assertTrue(foundNote.isPresent());
+		assertEquals("Test Note", foundNote.get().getTitle());
+		verify(noteRepository, times(1)).findById(1);
+	}
 	
 	// getNotesByUser
 	
