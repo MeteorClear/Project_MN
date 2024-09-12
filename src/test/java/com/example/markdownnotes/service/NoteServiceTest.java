@@ -81,6 +81,23 @@ public class NoteServiceTest {
 	}
 	
 	// getNotesByUser
+	@Test
+	void getNotesByUser_ShouldReturnNotes_WhenUserExists() {
+		// Given
+		List<Note> notes = new ArrayList<>();
+		notes.add(note);
+		when(userRepository.findById(1)).thenReturn(Optional.of(user));
+		when(noteRepository.findByUser(user)).thenReturn(notes);
+		
+		// When
+		List<Note> foundNotes = noteService.getNotesByUser(1);
+		
+		// Then
+		assertNotNull(foundNotes);
+		assertFalse(foundNotes.isEmpty());
+		assertEquals(1, foundNotes.size());
+		verify(noteRepository, times(1)).findByUser(user);
+	}
 	
 	// createNote
 	
