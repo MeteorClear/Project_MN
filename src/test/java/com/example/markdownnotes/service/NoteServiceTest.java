@@ -125,6 +125,17 @@ public class NoteServiceTest {
 		assertEquals("Test Note", createdNote.getTitle());
 		verify(noteRepository, times(1)).save(note);
 	}
+	// RuntimeException Test createNote
+	@Test
+	void createNote_ShouldThrowException_WhenUserDoesNotExist() {
+		// Given
+		when(userRepository.findById(1)).thenReturn(Optional.empty());
+		
+		// Then
+		assertThrows(RuntimeException.class, () -> noteService.createNote(note, 1));
+		verify(userRepository, times(1)).findById(1);
+		verify(noteRepository, times(0)).save(any(Note.class));
+	}
 	
 	// deleteNote
 	@Test
