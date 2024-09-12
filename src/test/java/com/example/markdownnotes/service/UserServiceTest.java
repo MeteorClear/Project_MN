@@ -133,6 +133,7 @@ public class UserServiceTest {
 		verify(userRepository, times(1)).findById(1);
 		verify(userRepository, times(1)).save(user);
 	}
+	// RuntimeException Test updateUser
 	@Test
 	void updateUser_ShouldThrowException_WhenUserDoesNotExist() {
 		// Given
