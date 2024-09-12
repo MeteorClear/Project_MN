@@ -1,9 +1,9 @@
 package com.example.markdownnotes.service;
 
-import com.example.markdownnotes.model.Note;
 import com.example.markdownnotes.model.User;
-import com.example.markdownnotes.repository.NoteRepository;
+import com.example.markdownnotes.model.Note;
 import com.example.markdownnotes.repository.UserRepository;
+import com.example.markdownnotes.repository.NoteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,5 +16,43 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class NoteServiceTest {
+	
+	@Mock
+	private UserRepository userRepository;
+	
+	@Mock
+	private NoteRepository noteRepository;
+	
+	@InjectMocks
+	private NoteService noteService;
+	
+	private User user;
+	private Note note;
+	
+	@BeforeEach
+	void setUp() {
+		user = new User();
+		user.setId(1);
+		user.setEmail("test@example.com");
+		user.setPassword("password");
+		user.setUsername("testuser");
+		
+		note = new Note();
+		note.setId(1);
+		note.setTitle("Test Note");
+		note.setContent("Test Note content");
+		note.setUser(user);
+	}
 
+	// getAllNotes
+	
+	// getNoteById
+	
+	// getNotesByUser
+	
+	// createNote
+	
+	// deleteNote
+	
+	// updateNote
 }
