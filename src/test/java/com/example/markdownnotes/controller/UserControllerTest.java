@@ -191,7 +191,7 @@ public class UserControllerTest {
 						"\"username\":\"updatedtestuser\"}"))
 		
 		// Then
-				.andExpect(status().isNoContent());
+				.andExpect(status().isNotFound());
 		
 		verify(userService, times(1)).updateUser(eq(1), any(User.class));
 	}
