@@ -112,6 +112,20 @@ public class UserControllerTest {
 	}
 	
 	// deleteUser
+	@Test
+	void deleteUser_ShouldReturnNoContent_WhenUserExists() throws Exception {
+		// Given
+		doNothing().when(userService).deleteUser(1);
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/users/1")
+				.contentType(MediaType.APPLICATION_JSON))
+		
+		// Then
+				.andExpect(status().isNoContent());
+		
+		verify(userService, times(1)).deleteUser(1);
+	}
 	
 	// updateUser
 }
