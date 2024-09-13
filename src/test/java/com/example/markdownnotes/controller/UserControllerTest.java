@@ -176,4 +176,20 @@ public class UserControllerTest {
 		
 		verify(userService, times(1)).updateUser(eq(1), any(User.class));
 	}
+	void updateUser_ShouldReturnNotFound_WhenUserDoesNotExist() throws Exception {
+		// Given
+		when(userService.updateUser(eq(1), any(User.class))).thenThrow(new RuntimeException());
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.put("/api/users/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"email\":\"updatedtest@example.com\", " +
+						"\"password\":\"updatedpassword\", " +
+						"\"username\":\"updatedtestuser\"}"))
+		
+		// Then
+				.andExpect(status().isNoContent());
+		
+		verify(userService, times(1)).updateUser(eq(1), any(User.class));
+	}
 }
