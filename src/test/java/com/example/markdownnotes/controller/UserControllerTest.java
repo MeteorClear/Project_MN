@@ -75,6 +75,7 @@ public class UserControllerTest {
 		
 		verify(userService, times(1)).getUserById(1);
 	}
+	@Test
 	void getUserById_ShouldReturnNotFound_WhenUserDoesNotExist() throws Exception {
 		// Given
 		when(userService.getUserById(1)).thenReturn(Optional.empty());
@@ -106,6 +107,7 @@ public class UserControllerTest {
 		
 		verify(userService, times(1)).getUserByEmail("test@example.com");
 	}
+	@Test
 	void getUserByEmail_ShouldReturnNotFound_WhenUserDoesNotExist() throws Exception {
 		// Given
 		when(userService.getUserByEmail("test@example.com")).thenReturn(Optional.empty());
@@ -176,6 +178,7 @@ public class UserControllerTest {
 		
 		verify(userService, times(1)).updateUser(eq(1), any(User.class));
 	}
+	@Test
 	void updateUser_ShouldReturnNotFound_WhenUserDoesNotExist() throws Exception {
 		// Given
 		when(userService.updateUser(eq(1), any(User.class))).thenThrow(new RuntimeException());
