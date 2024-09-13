@@ -140,9 +140,6 @@ public class NoteServiceTest {
 	// deleteNote
 	@Test
 	void deleteNote_ShouldCallRepositoryDelete_WhenNoteExists() {
-		// Given
-		when(noteRepository.findById(1)).thenReturn(Optional.of(note));
-		
 		// When
 		noteService.deleteNote(1);
 		
