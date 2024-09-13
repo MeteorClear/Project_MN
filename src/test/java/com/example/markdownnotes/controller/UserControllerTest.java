@@ -63,7 +63,7 @@ public class UserControllerTest {
 		when(userService.getUserById(1)).thenReturn(Optional.of(user));
 		
 		// When
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/user/1")
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/users/1")
 				.contentType(MediaType.APPLICATION_JSON))
 		
 		// Then
@@ -80,7 +80,7 @@ public class UserControllerTest {
 		when(userService.getUserByEmail("test@example.com")).thenReturn(Optional.of(user));
 		
 		// When
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/user/email")
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/users/email")
 				.param("email", "test@example.com")
 				.contentType(MediaType.APPLICATION_JSON))
 		
