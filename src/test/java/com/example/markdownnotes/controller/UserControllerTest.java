@@ -75,6 +75,19 @@ public class UserControllerTest {
 		
 		verify(userService, times(1)).getUserById(1);
 	}
+	void getUserById_ShouldReturnNotFound_WhenUserDoesNotExist() throws Exception {
+		// Given
+		when(userService.getUserById(1)).thenReturn(Optional.empty());
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/users/1")
+				.contentType(MediaType.APPLICATION_JSON))
+		
+		// Then
+				.andExpect(status().isNotFound());
+		
+		verify(userService, times(1)).getUserById(1);
+	}
 	
 	// getUserByEmail
 	@Test
