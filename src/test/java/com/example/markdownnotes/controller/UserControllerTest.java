@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
@@ -91,6 +92,24 @@ public class UserControllerTest {
 	}
 	
 	// createUser
+	@Test
+	void createUser_ShouldReturnCreatedUser() throws Exception {
+		// Given
+		when(userService.createUser(any(User.class))).thenReturn(user);
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/users")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"email\":\"test@example.com\", " +
+						"\"password\":\"password\", " +
+						"\"username\":\"testuser\"}"))
+		
+		// Then
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.email", is(user.getEmail())));
+		
+		verify(userService, times(1)).createUser(any(User.class));
+	}
 	
 	// deleteUser
 	
