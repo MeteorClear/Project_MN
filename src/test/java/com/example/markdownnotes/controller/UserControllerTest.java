@@ -16,6 +16,7 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
@@ -128,4 +129,22 @@ public class UserControllerTest {
 	}
 	
 	// updateUser
+	@Test
+	void updateUser_ShouldReturnUpdatedUser_WhenUserExists() throws Exception {
+		// Given
+		when(userService.updateUser(eq(1), any(User.class))).thenReturn(user);
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.put("/api/users/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"email\":\"updatedtest@example.com\", " +
+						"\"password\":\"updatedpassword\", " +
+						"\"username\":\"updatedtestuser\"}"))
+		
+		// Then
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.username", is(user.getEmail())));
+		
+		verify(userService, times(1)).updateUser(eq(1), any(User.class));
+	}
 }
