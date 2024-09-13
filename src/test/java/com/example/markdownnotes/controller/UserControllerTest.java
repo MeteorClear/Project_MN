@@ -145,7 +145,7 @@ public class UserControllerTest {
 		
 		// Then
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.username", is(user.getEmail())));
+				.andExpect(jsonPath("$.username", is(user.getUsername())));
 		
 		verify(userService, times(1)).updateUser(eq(1), any(User.class));
 	}
