@@ -21,5 +21,13 @@ public class UserControllerTest {
 	
 	private User user;
 	
+	@BeforeEach
+	void setup() {
+		user = new User();
+		user.setId(1);
+		user.setEmail("test@example.com");
+		user.setPassword("password");
+		user.setUsername("testuser");
+	}
 	
 }
