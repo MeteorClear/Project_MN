@@ -30,4 +30,15 @@ public class UserControllerTest {
 		user.setUsername("testuser");
 	}
 	
+	// getAllUsers
+	
+	// getUserById
+	
+	// getUserByEmail
+	
+	// createUser
+	
+	// deleteUser
+	
+	// updateUser
 }
