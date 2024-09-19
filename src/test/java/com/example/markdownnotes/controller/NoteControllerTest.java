@@ -113,6 +113,20 @@ public class NoteControllerTest {
 	}
 	
 	// deleteNote
+	@Test
+	void deleteNote_ShouldReturnNoContent_WhenNoteExists() throws Exception {
+		// Given
+		doNothing().when(noteService).deleteNote(1);
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/notes/1")
+				.contentType(MediaType.APPLICATION_JSON))
+		
+		// Then
+				.andExpect(status().isNoContent());
+		
+		verify(noteService, times(1)).deleteNote(1);
+	}
 	
 	// updateNote
 }
