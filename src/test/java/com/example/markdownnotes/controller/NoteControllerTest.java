@@ -24,5 +24,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(UserController.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class NoteControllerTest {
-
+	
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@MockBean
+	private NoteService noteService;
+	
+	private Note note;
+	
+	@BeforeEach
+	void setup() {
+		note = new Note();
+		note.setId(1);
+		note.setTitle("Test Note");
+		note.setContent("Test Note Content.");
+	}
+	
+	// getAllNotes
+	
+	// getNoteById
+	
+	// getNotesByUser
+	
+	// createNote
+	
+	// deleteNote
+	
+	// updateNote
 }
