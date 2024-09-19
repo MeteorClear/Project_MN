@@ -42,6 +42,22 @@ public class NoteControllerTest {
 	}
 	
 	// getAllNotes
+	@Test
+	void getAllNotes_ShouldReturnNoteList() throws Exception {
+		// Given
+		when(noteService.getAllNotes()).thenReturn(Arrays.asList(note));
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/notes")
+				.contentType(MediaType.APPLICATION_JSON))
+		
+		// Then
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", hasSize(1)))
+				.andExpect(jsonPath("$[0].title", is(note.getTitle())));
+		
+		verify(noteService, times(1)).getAllNotes();
+	}
 	
 	// getNoteById
 	
