@@ -188,4 +188,19 @@ public class NoteControllerTest {
 		
 		verify(noteService, times(1)).updateNote(eq(1), any(Note.class));
 	}
+	@Test
+	void updateNote_ShouldReturnNotFound_WhenNoteDoesNotExist() throws Exception {
+		// Given
+		when(noteService.updateNote(eq(1), any(Note.class))).thenThrow(new RuntimeException());
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.put("/api/notes/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"title\":\"Updated Test Note\", " +
+						"\"content\":\"Test Updated Note Content.\"}"))
+		// Then
+				.andExpect(status().isNotFound());
+		
+		verify(noteService, times(1)).updateNote(eq(1), any(Note.class));
+	}
 }
