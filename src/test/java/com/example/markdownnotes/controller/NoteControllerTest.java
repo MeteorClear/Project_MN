@@ -95,6 +95,22 @@ public class NoteControllerTest {
 	}
 	
 	// createNote
+	@Test
+	void createNote_ShouldReturnCreatedNote_WhenUserExists() throws Exception {
+		// Given
+		when(noteService.createNote(any(Note.class), eq(1))).thenReturn(note);
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/notes/user/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"title\":\"Test Note\", " +
+						"\"content\":\"Test Note Content.\"}"))
+		// Then
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.title", is(note.getTitle())));
+		
+		verify(noteService, times(1)).createNote(any(Note.class), eq(1));
+	}
 	
 	// deleteNote
 	
