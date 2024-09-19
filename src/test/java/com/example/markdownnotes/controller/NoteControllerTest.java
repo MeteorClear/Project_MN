@@ -129,4 +129,20 @@ public class NoteControllerTest {
 	}
 	
 	// updateNote
+	@Test
+	void updateNote_ShouldReturnUpdatedNote_WhenNoteExists() throws Exception {
+		// Given
+		when(noteService.updateNote(eq(1), any(Note.class))).thenReturn(note);
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.put("/api/notes/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"title\":\"Updated Test Note\", " +
+						"\"content\":\"Test Updated Note Content.\"}"))
+		// Then
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.title", is(note.getTitle())));
+		
+		verify(noteService, times(1)).updateNote(eq(1), any(Note.class));
+	}
 }
