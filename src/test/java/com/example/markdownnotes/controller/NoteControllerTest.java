@@ -77,6 +77,20 @@ public class NoteControllerTest {
 	}
 	
 	// getNotesByUser
+	@Test
+	void getNotesByUser_ShouldReturnNoteList_WhenUserExists() throws Exception {
+		// Given
+		when(noteService.getNotesByUser(1)).thenReturn(Arrays.asList(note));
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/notes/user/1")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", hasSize(1)))
+				.andExpect(jsonPath("$[0].title", is(note.getTitle())));
+		
+		verify(noteService, times(1)).getNotesByUser(1);
+	}
 	
 	// createNote
 	
