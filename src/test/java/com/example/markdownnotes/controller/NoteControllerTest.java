@@ -60,6 +60,21 @@ public class NoteControllerTest {
 	}
 	
 	// getNoteById
+	@Test
+	void getNoteById_ShouldReturnNote_WhenNoteExists() throws Exception {
+		// Given
+		when(noteService.getNoteById(1)).thenReturn(Optional.of(note));
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/notes/1")
+				.contentType(MediaType.APPLICATION_JSON))
+		
+		// Then
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.title", is(note.getTitle())));
+		
+		verify(noteService, times(1)).getNoteById(1);
+	}
 	
 	// getNotesByUser
 	
