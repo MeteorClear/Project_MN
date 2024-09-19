@@ -75,6 +75,20 @@ public class NoteControllerTest {
 		
 		verify(noteService, times(1)).getNoteById(1);
 	}
+	@Test
+	void getNoteById_ShouldReturnNotFound_WhenNoteDoesNotExist() throws Exception {
+		// Given
+		when(noteService.getNoteById(1)).thenReturn(Optional.empty());
+		
+		// When
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/notes/1")
+				.contentType(MediaType.APPLICATION_JSON))
+		
+		// Then
+				.andExpect(status().isNotFound());
+		
+		verify(noteService, times(1)).getNoteById(1);
+	}
 	
 	// getNotesByUser
 	@Test
