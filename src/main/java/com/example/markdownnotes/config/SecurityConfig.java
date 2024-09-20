@@ -1,7 +1,7 @@
 package com.example.markdownnotes.config;
 
 import com.example.markdownnotes.security.JwtAuthenticationFilter;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
+	@Autowired
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	
 	public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
@@ -54,5 +55,5 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
-	// 사용자 정보 반환
+	
 }
