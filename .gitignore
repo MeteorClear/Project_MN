@@ -38,4 +38,4 @@ build/
 .settings/
 
 ### Security ###
-/src/main/resources/
+/src/main/resources/application.properties
