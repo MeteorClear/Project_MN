@@ -34,6 +34,12 @@ public class JwtTokenUtil {
 	}
 	
 	// 토큰 유효성 검사
+	public boolean validateToken(String token, String username) {
+		String tokenUsername = getUsernameFromToken(token);
+		return (username.equals(tokenUsername) && !isTokenExpired(token));
+	}
+	
+	// 토큰 만료 검사
 	private boolean isTokenExpired(String token) {
 		Claims claims = Jwts.parser()
 				.setSigningKey(SECRET_KEY)
