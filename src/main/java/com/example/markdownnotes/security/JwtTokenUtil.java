@@ -25,6 +25,12 @@ public class JwtTokenUtil {
 	}
 	
 	// 토큰 닉네임 파싱
-	
+	public String getUsernameFromToken(String token) {
+		Claims claims = Jwts.parser()
+				.setSigningKey(SECRET_KEY)
+				.parseClaimsJws(token)
+				.getBody();
+		return claims.getSubject();
+	}
 	
 }
