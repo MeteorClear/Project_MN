@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 
+@Component
 public class JwtTokenUtil {
 	
 	@Value("${jwt.secret}")
@@ -47,5 +48,4 @@ public class JwtTokenUtil {
 				.getBody();
 		return claims.getExpiration().before(new Date());
 	}
-	
 }
