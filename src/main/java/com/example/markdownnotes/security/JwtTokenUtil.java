@@ -33,4 +33,13 @@ public class JwtTokenUtil {
 		return claims.getSubject();
 	}
 	
+	// 토큰 유효성 검사
+	private boolean isTokenExpired(String token) {
+		Claims claims = Jwts.parser()
+				.setSigningKey(SECRET_KEY)
+				.parseClaimsJws(token)
+				.getBody();
+		return claims.getExpiration().before(new Date());
+	}
+	
 }
