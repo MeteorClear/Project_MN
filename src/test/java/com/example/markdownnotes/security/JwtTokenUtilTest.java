@@ -55,6 +55,14 @@ public class JwtTokenUtilTest {
 	}
 	
 	// getUsernameFromToken
+	@Test
+	public void getUsernameFromToken_ShouldReturnCorrectUsername_WhenTokenIsValid() {
+		// When
+		String username = jwtTokenUtil.getUsernameFromToken(token);
+		
+		// Then
+		assertEquals(USERNAME, username);
+	}
 	
 	// validateToken
 	
