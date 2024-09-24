@@ -75,4 +75,12 @@ public class JwtTokenUtilTest {
 	}
 	
 	// isTokenExpired
+	@Test
+	public void isTokenExpired_ShouldReturnFalse_WhenTokenIsValid() {
+		// When
+		boolean isExpired = ReflectionTestUtils.invokeMethod(jwtTokenUtil, "isTokenExpired", token);
+		
+		// Then
+		assertFalse(isExpired);
+	}
 }
