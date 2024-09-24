@@ -65,6 +65,14 @@ public class JwtTokenUtilTest {
 	}
 	
 	// validateToken
+	@Test
+	public void validateToken_ShouldReturnTrue_WhenTokenIsValid() {
+		// When
+		boolean isValid = jwtTokenUtil.validateToken(token, USERNAME);
+		
+		// Then
+		assertTrue(isValid);
+	}
 	
 	// isTokenExpired
 }
