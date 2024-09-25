@@ -46,6 +46,7 @@ public class JwtAuthenticationFilterTest {
 	
 	@BeforeEach
 	public void setup() {
+		SecurityContextHolder.clearContext();
 		username = "test@example.com";
 		token = "test_jwt_token";
 	}
@@ -70,4 +71,21 @@ public class JwtAuthenticationFilterTest {
 		verify(jwtTokenUtil, times(1)).validateToken(token, username);
 		verify(filterChain, times(1)).doFilter(request, response);
 	}
+	
+	@Test
+	public void doFilterInternal_ShouldNotSetAuthentication_WhenJwtTokenIsInvalid() throws Exception {
+		// Given
+		when(request.getHeader("Authorization")).thenReturn("InvalidHeader " + token);
+		
+		// When
+		jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
+		
+		// Then
+		assertNull(SecurityContextHolder.getContext().getAuthentication());
+		
+		verify(jwtTokenUtil, times(0)).getUsernameFromToken(anyString());
+		verify(jwtTokenUtil, times(0)).validateToken(anyString(), anyString());
+		verify(filterChain, times(1)).doFilter(request, response);
+	}
+	
 }
