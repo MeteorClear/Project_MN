@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -49,5 +50,17 @@ public class CustomUserDetailsServiceTest {
 		verify(userRepository, times(1)).findByEmail("test@example.com");
 	}
 	
+	@Test
+	public void loadUserByUsername_ShouldThrowException_WhenUserDoesNotExist() {
+		// Given
+		when(userRepository.findByEmail("wrong@example.com")).thenReturn(Optional.empty());
+		
+		// Then
+		assertThrows(UsernameNotFoundException.class, () -> {
+			customUserDetailsService.loadUserByUsername("wrong@example.com");
+		});
+		
+		verify(userRepository, times(1)).findByEmail("wrong@example.com");
+	}
 	
 }
