@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -65,5 +66,21 @@ public class JwtAuthenticationControllerTest {
 		verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
 		verify(customUserDetailsService, times(1)).loadUserByUsername(jwtRequest.getUsername());
 		verify(jwtTokenUtil, times(1)).generateToken(userDetails.getUsername());
+	}
+	
+	@Test
+	public void createAuthenticationToken_ShouldThrowException_WhenCredentialsAreInvalid() throws Exception {
+		// Given
+		when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
+				.thenThrow(new BadCredentialsException("[ERROR]Invalid Credentials"));
+		
+		// Then
+		Exception exception = assertThrows(Exception.class, () -> {jwtAuthenticationController.createAuthenticationToken(jwtRequest);});
+		
+		assertEquals("[ERROR]Invalid Credentials", exception.getMessage());
+		
+		verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
+		verify(customUserDetailsService, times(0)).loadUserByUsername(anyString());
+		verify(jwtTokenUtil, times(0)).generateToken(anyString());
 	}
 }
