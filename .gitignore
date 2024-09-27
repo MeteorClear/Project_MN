@@ -39,4 +39,5 @@ build/
 
 ### Security ###
 /src/main/resources/application.properties
+/src/main/resources/keystore.p12
 /src/test/resources/application-test.properties
