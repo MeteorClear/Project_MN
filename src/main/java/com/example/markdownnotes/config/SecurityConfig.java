@@ -33,7 +33,14 @@ public class SecurityConfig {
 		http
 			.csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/api/auth/**").permitAll() // 인증이 필요 없는 경로
+				.requestMatchers(
+						"/api/auth/**",				// 인증이 필요 없는 경로
+						"/swagger-ui.html",			// Swagger UI 경로
+						"/v3/api-docs/**",			// OpenAPI 문서 경로
+						"/swagger-ui/**",			// Swagger 리소스 경로
+						"/swagger-resources/**",	// Swagger 리소스 경로
+						"/webjars/**"				// WebJars 경로
+						).permitAll()
 				.anyRequest().authenticated()) // 나머지 경로는 인증 필요
 			.sessionManagement(session -> session
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // 세션을 사용하지 않음
