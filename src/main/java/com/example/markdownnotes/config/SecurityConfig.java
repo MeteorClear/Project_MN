@@ -39,7 +39,8 @@ public class SecurityConfig {
 						"/v3/api-docs/**",			// OpenAPI 문서 경로
 						"/swagger-ui/**",			// Swagger 리소스 경로
 						"/swagger-resources/**",	// Swagger 리소스 경로
-						"/webjars/**"				// WebJars 경로
+						"/webjars/**",				// WebJars 경로
+						"/error"					// 에러 페이지 경로
 						).permitAll()
 				.anyRequest().authenticated()) // 나머지 경로는 인증 필요
 			.sessionManagement(session -> session
