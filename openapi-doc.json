@@ -9,6 +9,9 @@
     "url" : "https://localhost:8443",
     "description" : "Generated server url"
   } ],
+  "security" : [ {
+    "bearerAuth" : [ ]
+  } ],
   "paths" : {
     "/api/users/{id}" : {
       "get" : {
@@ -209,7 +212,7 @@
             "content" : {
               "*/*" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/User"
+                  "type" : "object"
                 }
               }
             }
@@ -418,6 +421,13 @@
             "type" : "string"
           }
         }
+      }
+    },
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
       }
     }
   }
