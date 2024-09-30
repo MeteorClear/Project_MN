@@ -1,6 +1,7 @@
 package com.example.markdownnotes.controller;
 
 import com.example.markdownnotes.model.Note;
+import com.example.markdownnotes.security.JwtTokenUtil;
 import com.example.markdownnotes.service.NoteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,9 @@ public class NoteControllerTest {
 	
 	@MockBean
 	private NoteService noteService;
+	
+	@MockBean
+	private JwtTokenUtil jwtTokenUtil;
 	
 	private Note note;
 	
