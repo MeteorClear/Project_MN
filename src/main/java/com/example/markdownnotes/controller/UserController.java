@@ -2,6 +2,8 @@ package com.example.markdownnotes.controller;
 
 import com.example.markdownnotes.model.User;
 import com.example.markdownnotes.service.UserService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
@@ -39,9 +41,15 @@ public class UserController {
 	
 	// 사용자 생성
 	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-		User createdUser = userService.createUser(user);
-		return ResponseEntity.ok(createdUser);
+	public ResponseEntity<?> createUser(@RequestBody User user) {
+		try {
+			// 사용자 생성 시도
+			User createdUser = userService.createUser(user);
+			return ResponseEntity.ok(createdUser);
+		} catch (IllegalArgumentException e) {
+			// 중복시 409 Conflict
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+		}
 	}
 	
 	// 사용자 삭제
