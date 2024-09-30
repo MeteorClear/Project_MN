@@ -35,6 +35,13 @@ public class UserService {
 	
 	// 사용자 생성
 	public User createUser(User user) {
+		// 이메일 중복 확인
+		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+		if (existingUser.isPresent()) {
+			throw new IllegalArgumentException("[ERROR]User already exists");
+		}
+		
+		// 비밀번호 인코딩
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
