@@ -35,6 +35,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers(
 						"/api/auth/**",				// 인증이 필요 없는 경로
+						"/api/users/**",			// user 경로
 						"/swagger-ui.html",			// Swagger UI 경로
 						"/v3/api-docs/**",			// OpenAPI 문서 경로
 						"/swagger-ui/**",			// Swagger 리소스 경로
