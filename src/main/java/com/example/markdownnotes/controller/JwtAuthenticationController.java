@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +28,17 @@ public class JwtAuthenticationController {
 	
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	// Jwt 토큰 발급
 	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-		
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		// 이메일과 비밀번호로 인증 수행
+		authenticate(
+				authenticationRequest.getUsername(), 
+				authenticationRequest.getPassword());
 		
 		final UserDetails userDetails = customUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		
@@ -44,7 +50,9 @@ public class JwtAuthenticationController {
 	// 사용자 인증
 	private void authenticate(String email, String password) throws Exception {
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+			// 비밀번호 인코딩
+			String encodedPassword = passwordEncoder.encode(password);
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, encodedPassword));
 		} catch (BadCredentialsException e) {
 			throw new Exception("[ERROR]Invalid Credentials", e);
 		}
