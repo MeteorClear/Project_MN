@@ -2,6 +2,9 @@ package com.example.markdownnotes.service;
 
 import com.example.markdownnotes.model.User;
 import com.example.markdownnotes.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -11,6 +14,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 	private final UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	// 모든 사용자 조회
 	public List<User> getAllUsers() {
@@ -29,6 +35,7 @@ public class UserService {
 	
 	// 사용자 생성
 	public User createUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
 	
@@ -41,7 +48,7 @@ public class UserService {
 	public User updateUser(Integer id, User updatedUser) {
 		return userRepository.findById(id).map(user -> {
 			user.setEmail(updatedUser.getEmail());
-			user.setPassword(updatedUser.getPassword());
+			user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 			user.setUsername(updatedUser.getUsername());
 			return userRepository.save(user);
 		}).orElseThrow(() -> new RuntimeException("[ERROR]User not found, id: " + id));
