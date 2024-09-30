@@ -50,9 +50,7 @@ public class JwtAuthenticationController {
 	// 사용자 인증
 	private void authenticate(String email, String password) throws Exception {
 		try {
-			// 비밀번호 인코딩
-			String encodedPassword = passwordEncoder.encode(password);
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, encodedPassword));
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 		} catch (BadCredentialsException e) {
 			throw new Exception("[ERROR]Invalid Credentials", e);
 		}
