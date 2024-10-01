@@ -4,6 +4,7 @@ import com.example.markdownnotes.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -33,6 +34,8 @@ public class SecurityConfig {
 		http
 			.csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
 			.authorizeHttpRequests(auth -> auth
+				.requestMatchers(HttpMethod.DELETE, "/api/users/{id}").authenticated()		// 사용자 삭제 경로
+				.requestMatchers(HttpMethod.PUT, "/api/users/{id}").authenticated()			// 사용자 업데이트 경로
 				.requestMatchers(
 						"/api/auth/**",				// 인증이 필요 없는 경로
 						"/api/users/**",			// user 경로
