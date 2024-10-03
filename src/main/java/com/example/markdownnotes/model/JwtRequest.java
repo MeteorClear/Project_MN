@@ -13,8 +13,11 @@ import lombok.Setter;
 @Setter
 public class JwtRequest implements Serializable  {
 	
-	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * 직렬화를 위한 고유 ID.
+	 */
+	private static final long serialVersionUID = -943634020037418999L;
+
 	/**
 	 * 기본 생성자.
 	 * 빈 객체로 초기화.
