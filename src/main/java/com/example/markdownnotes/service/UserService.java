@@ -34,7 +34,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 	
 	/**
-	 * 모든 사용자 조회
+	 * 모든 사용자 조회.
 	 * 
 	 * @return List<User> 전체 사용자 목록
 	 */
@@ -43,7 +43,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 사용자 id 로 조회
+	 * 사용자 id 로 조회.
 	 * 
 	 * @param id 조회할 사용자의 Id
 	 * @return Optional<User> ID에 해당하는 사용자의 정보
@@ -53,7 +53,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 사용자 email 로 조회
+	 * 사용자 email 로 조회.
 	 * 
 	 * @param email 조회할 사용자의 Email
 	 * @return Optional<User> 이메일에 해당하는 사용자의 정보
@@ -63,7 +63,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 사용자 생성
+	 * 사용자 생성.
 	 * 
 	 * @param user 생성할 사용자 정보
 	 * @return User 생성된 사용자 정보
@@ -82,7 +82,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 사용자 삭제
+	 * 사용자 삭제.
 	 * 
 	 * @param id 삭제할 사용자의 Id
 	 */
@@ -91,7 +91,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 사용자 업데이트
+	 * 사용자 업데이트.
 	 * 
 	 * @param id 업데이트할 사용자의 Id
 	 * @param updatedUser 업데이트할 사용자 정보
