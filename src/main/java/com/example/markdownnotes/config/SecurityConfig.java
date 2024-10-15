@@ -60,6 +60,7 @@ public class SecurityConfig {
 		http
 			.csrf(csrf -> csrf.disable()) 				// CSRF 보호 비활성화
 			.authorizeHttpRequests(auth -> auth			// 요청 경로별로 접근 권한을 설정
+				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.requestMatchers(HttpMethod.DELETE, "/api/users/{id}").authenticated()		// 사용자 삭제 경로
 				.requestMatchers(HttpMethod.PUT, "/api/users/{id}").authenticated()			// 사용자 업데이트 경로
 				.requestMatchers(						// 인증이 필요 없는 경로
