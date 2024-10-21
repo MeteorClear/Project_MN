@@ -44,8 +44,9 @@ public class User {
 	
 	/**
 	 * 사용자의 계정 생성일
+	 * 수정: columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP" 에서 PrePersist, updatable = false
 	 */
-	@Column(name = "created_at", nullable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "created_at", nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 	
 	/**
@@ -53,5 +54,13 @@ public class User {
 	 */
 	public User() {
 		
+	}
+	
+	/**
+	 * 엔티티가 처음 persist 되면 createdAt를 현재 시간으로 설정
+	 */
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = LocalDateTime.now();
 	}
 }
